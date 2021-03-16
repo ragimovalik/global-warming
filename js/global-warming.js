@@ -1,12 +1,15 @@
 const chartBox = document.getElementById("chart");
 const context = chartBox.getContext("2d");
 
+// const fillPattern = context.createPattern( )
+
 fetchData()
   .then((data) => parsedData(data))
-  .then((data) => mappedDate(data))
+  .then((data) => mappedData(data))
   .then(({ years, temps, nHemTemps, sHemTemps }) =>
     drawing(years, temps, nHemTemps, sHemTemps)
-  );
+  )
+  .catch((error) => console.log(error));
 
 async function fetchData() {
   const res = await fetch("./data/ZonAnn.Ts+dSST.csv");
@@ -22,7 +25,7 @@ function parsedData(data) {
   }).data;
 }
 
-function mappedDate(data) {
+function mappedData(data) {
   return data.reduce(
     (acc, entry) => {
       acc.years.push(entry.Year);
@@ -69,14 +72,28 @@ function drawing(years, temps, nHemTemps, sHemTemps) {
       ],
     },
     options: {
+      legend: {
+        labels: {
+          fontColor: "black",
+        },
+      },
+
       scales: {
         yAxes: [
           {
             ticks: {
               beginAtZero: false,
+              fontColor: "black",
               callback(value, index, values) {
                 return value + " ℃";
               },
+            },
+          },
+        ],
+        xAxes: [
+          {
+            ticks: {
+              fontColor: "black",
             },
           },
         ],

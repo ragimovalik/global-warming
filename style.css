@@ -20,7 +20,7 @@ body {
   width: 400px;
   height: 400px;
   outline: 1px solid red;
-  background-color: #ffffff;
+  background-color: rgba(252, 252, 241, 0.4);
 }
 
 .container {
